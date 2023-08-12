@@ -70,24 +70,46 @@ The keys will be created under the `~/.oci` directory.
 cd $HOME/workspace/cloud
 git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
-4. **Configuring the Terraform Project**:
+4. **(Optional) Configuring the OCI CLI - Recommended**:
+To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.
+Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.
+For MacOS users, you can use `pbcopy` to copy the public key content:
+```
+cat ~/.oci/$USER-oracle-cloud_public.pem | pbcopy
+```
+
+After copying the RSA key and creating the new API Key, you'll have the option to copy the configurations under the `Configuration file preview`.
+Copy this section to a new file under `~/.oci/config`. Don't forget to edit the `key_file` to your private key path.
+For example:
+`key_file=~/.oci/daveops-oracle-cloud.pem`
+
+To test the OCI client is configured, run the following command:
+```
+oci iam region list
+```
+
+The command should output a JSON list of all regions.
+
+6. **Configuring the Terraform Project**:
  - Navigate to the repository directory:
 ```
 cd  $HOME/workspace/cloud/k3s-oci-cluster/example
 ```
  - Configure your Oracle Cloud Infrastructure settings in Terraform by modifying the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory.
+Those steps can be skipped if the OCI client was configured and you can use the ~/.oci/config content to populate the `terraform.tfvars` file.
+
 - To collect the required credential information from the **OCI Console**, gather the information accordingly:
+
+**Fingerprint**: <fingerprint>
+From the Profile menu, go to User settings and click API Keys.
+Press on the `Add API Key` and paste the content of the public RSA key we created, afterwards copy the fingerprint associated with the RSA public key. 
+The format is: xx:xx:xx...xx.
 
 **Tenancy OCID**: <tenancy-ocid>
 In the top navigation bar, click the Profile menu, go to Tenancy: <your-tenancy> and copy OCID.
 
 **User OCID**: <user-ocid>
 From the Profile menu, go to User settings and copy OCID.
-
-**Fingerprint**: <fingerprint>
-From the Profile menu, go to User settings and click API Keys.
-Press on the `Add API Key` and paste the content of the public RSA key we created, afterwards copy the fingerprint associated with the RSA public key. 
-The format is: xx:xx:xx...xx.
 
 **Region**: <region-identifier>
 From the top navigation bar, find your region.
