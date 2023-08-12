@@ -50,13 +50,13 @@ bash prepare-env.sh
 **Disclaimer**: this script was created **ONLY** for MacOS users and won't work for other operating systems.
 
 Steps to configure the local environment:
-1. **Create directories**:
+### 1. **Create directories**:
 ```
 mkdir -p ~/.oci
 mkdir -p $HOME/workspace/cloud
 ```
 
-2. **Create RSA keys**:
+### 2. **Create RSA keys**:
 ```
 openssl genrsa -out ~/.oci/${USER}-oracle-cloud.pem 4096
 chmod 600 ~/.oci/${USER}-oracle-cloud.pem
@@ -64,13 +64,13 @@ openssl rsa -pubout -in ~/.oci/${USER}-oracle-cloud.pem -out ~/.oci/${USER}-orac
 ```
 The keys will be created under the `~/.oci` directory.
 
-3. **Cloning the GitHub Repository**:
+### 3. **Cloning the GitHub Repository**:
  - Clone the [K3s on OCI Repository](https://github.com/garutilorenzo/k3s-oci-cluster.git) that contains our project files.
 ```
 cd $HOME/workspace/cloud
 git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
-4. **(Optional) Configuring the OCI CLI - Recommended**:
+### 4. **(Optional) Configuring the OCI CLI - Recommended**:
 To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.
 Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.
 For MacOS users, you can use `pbcopy` to copy the public key content:
@@ -90,7 +90,7 @@ oci iam region list
 
 The command should output a JSON list of all regions.
 
-5. **Collecting OCI Secrets For tfvars File**:
+### 5. **Collecting OCI Secrets For tfvars File**:
  - Navigate to the repository directory:
 ```
 cd  $HOME/workspace/cloud/k3s-oci-cluster/example
@@ -120,7 +120,7 @@ Collect the following information from your environment.
 Path to the RSA private key you made in the Create RSA Keys section.
 Example for Oracle Linux: /home/opc/.oci/<your-rsa-key-name>.pem
 
-6. **Configuring the Terraform Project**:
+### 6. **Configuring the Terraform Project**:
 After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
 ```
 fingerprint      = "<rsa_key_fingerprint>"
@@ -130,13 +130,13 @@ tenancy_ocid     = "<tenency_ocid>"
 compartment_ocid = "<compartment_ocid>"
 ```
 
-7. **Running Terraform Commands**:
+### 7. **Running Terraform Commands**:
 From the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory, run the following command to spin up the Kubernetes cluster using the OCI resources:
  - Initialize the Terraform project: `terraform init`.
  - Review the execution plan: `terraform plan`.
  - Apply changes to create the Kubernetes cluster: `terraform apply`.
 
-8. **Exploring Terraform Destroy**:
+### 8. **Exploring Terraform Destroy**:
  - Understand how to clean up resources using `terraform destroy`.
 
 ## Resources
