@@ -20,6 +20,12 @@ echo "
 ######################################
 "
 
+# Verify if running on macOS
+if [ "$(uname)" != "Darwin" ]; then
+    echo "Error: This script is intended to run on macOS only."
+    exit 1
+fi
+
 # Define the variables
 terraform_project_dir="/Users/$USER/workspace/cloud/k3s-oci-cluster/example"
 tfvars_file="$terraform_project_dir/terraform.tfvars"

@@ -4,6 +4,12 @@ echo "###########################################
 #### Road To DevOps Preperation Script ####
 ###########################################"
 
+# Verify if running on macOS
+if [ "$(uname)" != "Darwin" ]; then
+    echo "Error: This script is intended to run on macOS only."
+    exit 1
+fi
+
 # Create directories
 echo "### INFO: Creating Directories."
 mkdir -p ~/.oci
