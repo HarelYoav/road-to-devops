@@ -30,6 +30,26 @@ if [ ! -d "$terraform_project_dir" ]; then
     exit 1
 fi
 
+# Verify if OCI CLI is installed
+if ! command -v oci &> /dev/null; then
+    echo "Error: OCI CLI is not installed. Please install it and configure your credentials."
+    exit 1
+fi
+
+# Verify if OCI CLI config file exists
+if [ ! -f "$HOME/.oci/config" ]; then
+    echo "Error: ~/.oci/config does not exist."
+    exit 1
+fi
+
+# Verify if OCI CLI configuration is valid
+OCI_CONFIG=~/.oci/config oci iam region list &> /dev/null
+if [ $? -ne 0 ]; then
+    echo "Error: OCI CLI configuration is not valid or unable to retrieve region list.
+INFO: For more information, read https://github.com/davidpinhas/road-to-devops/blob/master/chapters/chapter1-create-your-kubernetes-cluster/README.md#4-optional-configuring-the-oci-cli---recommended"
+    exit 1
+fi
+
 # Create terraform.tfvars file under the k3s-oci-cluster/example directory
 if [ ! -f "$tfvars_file" ]; then
     touch "$tfvars_file"
