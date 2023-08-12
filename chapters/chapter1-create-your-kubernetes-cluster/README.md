@@ -70,7 +70,7 @@ The keys will be created under the `~/.oci` directory.
 cd $HOME/workspace/cloud
 git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
-### 4. **(Optional) Configuring the OCI CLI - Recommended**:
+### 4. **Configuring the OCI CLI - Recommended Method**:
 To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.
 Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.
 For MacOS users, you can use `pbcopy` to copy the public key content:

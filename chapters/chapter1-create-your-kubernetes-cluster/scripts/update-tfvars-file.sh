@@ -52,7 +52,7 @@ fi
 OCI_CONFIG=~/.oci/config oci iam region list &> /dev/null
 if [ $? -ne 0 ]; then
     echo "Error: OCI CLI configuration is not valid or unable to retrieve region list.
-INFO: For more information, read https://github.com/davidpinhas/road-to-devops/blob/master/chapters/chapter1-create-your-kubernetes-cluster/README.md#4-optional-configuring-the-oci-cli---recommended"
+INFO: For more information, read https://github.com/davidpinhas/road-to-devops/blob/master/chapters/chapter1-create-your-kubernetes-cluster/README.md#4-configuring-the-oci-cli---recommended-method"
     exit 1
 fi
 
