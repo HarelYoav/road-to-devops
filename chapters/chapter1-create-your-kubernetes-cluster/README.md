@@ -86,7 +86,8 @@ From the Profile menu, go to User settings and copy OCID.
 
 **Fingerprint**: <fingerprint>
 From the Profile menu, go to User settings and click API Keys.
-Copy the fingerprint associated with the RSA public key you made in section 2. The format is: xx:xx:xx...xx.
+Press on the `Add API Key` and paste the content of the public RSA key we created, afterwards copy the fingerprint associated with the RSA public key. 
+The format is: xx:xx:xx...xx.
 
 **Region**: <region-identifier>
 From the top navigation bar, find your region.
@@ -96,6 +97,15 @@ Collect the following information from your environment.
 **Private Key Path**: <rsa-private-key-path>
 Path to the RSA private key you made in the Create RSA Keys section.
 Example for Oracle Linux: /home/opc/.oci/<your-rsa-key-name>.pem
+
+After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
+```
+fingerprint      = "<rsa_key_fingerprint>"
+private_key_path = "~/.oci/<your_name>-oracle-cloud.pem"
+user_ocid        = "<user_ocid>"
+tenancy_ocid     = "<tenency_ocid>"
+compartment_ocid = "<compartment_ocid>"
+```
 
 6. Afterwards, create and fill the **terraform.tfvars** file.
 7. **Running Terraform Commands**:
