@@ -98,7 +98,7 @@ Collect the following information from your environment.
 Path to the RSA private key you made in the Create RSA Keys section.
 Example for Oracle Linux: /home/opc/.oci/<your-rsa-key-name>.pem
 
-After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
+6. After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
 ```
 fingerprint      = "<rsa_key_fingerprint>"
 private_key_path = "~/.oci/<your_name>-oracle-cloud.pem"
@@ -107,8 +107,8 @@ tenancy_ocid     = "<tenency_ocid>"
 compartment_ocid = "<compartment_ocid>"
 ```
 
-6. Afterwards, create and fill the **terraform.tfvars** file.
 7. **Running Terraform Commands**:
+From the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory, run the following command to spin up the Kubernetes cluster using the OCI resources:
  - Initialize the Terraform project: `terraform init`.
  - Review the execution plan: `terraform plan`.
  - Apply changes to create the Kubernetes cluster: `terraform apply`.
