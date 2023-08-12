@@ -75,9 +75,9 @@ git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
 cd  $HOME/workspace/cloud/k3s-oci-cluster/example
 ```
- - Configure your Oracle Cloud Infrastructure settings in Terraform by modifying the .
+ - Configure your Oracle Cloud Infrastructure settings in Terraform by modifying the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory.
+- To collect the required credential information from the **OCI Console**, gather the information accordingly:
 
-To collect the required credential information from the **OCI Console**, gather the information accordingly:
 **Tenancy OCID**: <tenancy-ocid>
 In the top navigation bar, click the Profile menu, go to Tenancy: <your-tenancy> and copy OCID.
 
