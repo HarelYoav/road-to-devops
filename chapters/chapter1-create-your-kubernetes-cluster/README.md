@@ -90,7 +90,7 @@ oci iam region list
 
 The command should output a JSON list of all regions.
 
-6. **Configuring the Terraform Project**:
+5. **Collecting OCI Secrets For tfvars File**:
  - Navigate to the repository directory:
 ```
 cd  $HOME/workspace/cloud/k3s-oci-cluster/example
@@ -120,7 +120,8 @@ Collect the following information from your environment.
 Path to the RSA private key you made in the Create RSA Keys section.
 Example for Oracle Linux: /home/opc/.oci/<your-rsa-key-name>.pem
 
-6. After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
+6. **Configuring the Terraform Project**:
+After collecting all the information you'll need to create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory and copy all the information to it, like so:
 ```
 fingerprint      = "<rsa_key_fingerprint>"
 private_key_path = "~/.oci/<your_name>-oracle-cloud.pem"
