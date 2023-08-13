@@ -69,13 +69,13 @@ append_values 'fingerprint = "'$(grep '^fingerprint=' ~/.oci/config | cut -d'=' 
 append_values 'user_ocid = "'$(grep '^user=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
 append_values 'private_key_path = "'$(grep '^key_file=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
 append_values 'tenancy_ocid = "'$(grep '^tenancy=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
-append_values 'availability_domain = "'$(oci iam availability-domain list | jq '.data[0].name' | cut -d '"' -f2)'"' "$tfvars_file"
 append_values 'compartment_ocid = "'$(grep '^tenancy=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
-append_values 'cluster_name = "test-cluster"' "$tfvars_file"
-append_values 'my_public_ip_cidr = "'$(dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com | cut -d '"' -f2)'/32"' "$tfvars_file"
+append_values 'region = "'$(grep '^region=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
+
 tenancy_id=$(grep '^tenancy=' ~/.oci/config | cut -d'=' -f2)
 image_id=$(oci compute image list --compartment-id "$tenancy_id" --operating-system 'Canonical Ubuntu' --shape 'VM.Standard.A1.Flex' | grep 'Canonical-Ubuntu-22.04' -A2 | grep id | head -n1 | cut -d'"' -f4)
 append_values "os_image_id = \"$image_id\"" "$tfvars_file"
-
+append_values 'availability_domain = "'$(oci iam availability-domain list | jq '.data[0].name' | cut -d '"' -f2)'"' "$tfvars_file"
+append_values 'cluster_name = "test-cluster"' "$tfvars_file"
+append_values 'my_public_ip_cidr = "'$(dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com | cut -d '"' -f2)'/32"' "$tfvars_file"
 append_values 'certmanager_email_address = "daveops.dev@gmail.com"' "$tfvars_file"
-append_values 'region = "'$(grep '^region=' ~/.oci/config | cut -d'=' -f2)'"' "$tfvars_file"
