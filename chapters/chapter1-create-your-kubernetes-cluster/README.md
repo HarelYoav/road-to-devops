@@ -64,7 +64,6 @@ git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 
 ### 4. **Configuring the OCI CLI - Recommended Method**:
 To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.  
-
 Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.  
 
 For MacOS users, you can use `pbcopy` to copy the public key content:
@@ -72,10 +71,9 @@ For MacOS users, you can use `pbcopy` to copy the public key content:
 cat ~/.oci/$USER-oracle-cloud_public.pem | pbcopy
 ```
 
-After copying the RSA key and creating the new API Key, you'll have the option to copy the configurations under the `Configuration file preview`.  
+After copying the RSA key and creating the new API Key, you'll have the option to copy the configurations under the `Configuration file preview`.
 
 Copy this section to a new file under `~/.oci/config`. Don't forget to edit the `key_file` to your private key path.  
-
 For example:
 `key_file=~/.oci/daveops-oracle-cloud.pem`
 
@@ -95,7 +93,6 @@ bash update-tfvars-file.sh
 This will create the `terraform.tfvars` file under the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory with all the required variables to configure the Terraform project.
 
 The **hard way** to configure the `terraform.tfvars` file is by manually creating it and copying the variables manually, using these steps:
-
  - Navigate to the repository directory:
 ```
 cd  $HOME/workspace/cloud/k3s-oci-cluster/example
@@ -135,15 +132,9 @@ From the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory, run the foll
 
 ### Installation docs
 Homebrew installation page: https://brew.sh.  
-
 Terraform installation page: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli.  
-
 OCI client installation page: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm.  
-
 Python installation page: https://www.python.org/downloads/.  
-
 Git installation page: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git.  
-
 Kubectl installation page: https://kubernetes.io/docs/tasks/tools/.  
-
 Jq installation page: https://jqlang.github.io/jq/download/.  
