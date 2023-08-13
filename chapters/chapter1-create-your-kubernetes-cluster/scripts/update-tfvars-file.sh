@@ -7,9 +7,9 @@ append_values() {
 
     if ! grep -qF "$line_to_append" "$tfvars_file"; then
         echo "$line_to_append" >> "$tfvars_file"
-        echo "INFO: Appended - $line_to_append"
+        echo "INFO: Appended - $(echo "$line_to_append" | awk -F'=' '{print $1}')"
     else
-        echo "WARN: Skipping line, already exists - $line_to_append"
+        echo "WARN: Skipping line, already exists - $(echo "$line_to_append" | awk -F'=' '{print $1}')"
     fi
 }
 
