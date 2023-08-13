@@ -36,7 +36,7 @@ mkdir -p ~/.oci
 mkdir -p $HOME/workspace/cloud
 ```
 
-:rotating_light: WARNING: Before Generating any RSA/SSH keys!
+:rotating_light: **WARNING**: Before Generating any RSA/SSH keys!
 In case you have any keys in the `~/.oci` or `~/.ssh` directories, PLEASE CREATE A BACKUP!!!
 
 2. **Create RSA keys**:
@@ -63,15 +63,15 @@ git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
 
 ### 4. **Configuring the OCI CLI - Recommended Method**:
-To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.
-Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.
+To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.  
+Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.  
 For MacOS users, you can use `pbcopy` to copy the public key content:
 ```
 cat ~/.oci/$USER-oracle-cloud_public.pem | pbcopy
 ```
 
-After copying the RSA key and creating the new API Key, you'll have the option to copy the configurations under the `Configuration file preview`.
-Copy this section to a new file under `~/.oci/config`. Don't forget to edit the `key_file` to your private key path.
+After copying the RSA key and creating the new API Key, you'll have the option to copy the configurations under the `Configuration file preview`.  
+Copy this section to a new file under `~/.oci/config`. Don't forget to edit the `key_file` to your private key path.  
 For example:
 `key_file=~/.oci/daveops-oracle-cloud.pem`
 
@@ -103,7 +103,7 @@ fingerprint = "<Copy the FINGERPRINT from the ~/.oci/config file>"
 user_ocid = "<Copy the USER from the ~/.oci/config file>"
 private_key_path = "<Copy the key_file from the ~/.oci/config file>"
 tenancy_ocid = "<Copy the TENANCY from the ~/.oci/config file>"
-compartment_ocid = "ocid1.tenancy.oc1..<Copy the TENANCY from the ~/.oci/config file>"
+compartment_ocid = "<Copy the TENANCY from the ~/.oci/config file>"
 region = "<Copy the REGION from the ~/.oci/config file>"
 os_image_id = "<Use the command oci compute image list --compartment-id "$tenancy_id" --operating-system 'Canonical Ubuntu' --shape 'VM.Standard.A1.Flex' to find the image ID tag (Recommended - Ubuntu 22.04)>"
 availability_domain = "<Run the command 'oci iam availability-domain list' and paste the $name variable>"
@@ -130,10 +130,10 @@ From the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory, run the foll
 - Garuti Lorenzo's **k3s-oci-cluster** GitHub Repository: [K3s on OCI Repository](https://github.com/garutilorenzo/k3s-oci-cluster.git) :heart:
 
 ### Installation docs
-Homebrew installation page: https://brew.sh
-Terraform installation page: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
-OCI client installation page: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm
-Python installation page: https://www.python.org/downloads/
-Git installation page: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-Kubectl installation page: https://kubernetes.io/docs/tasks/tools/
-Jq installation page: https://jqlang.github.io/jq/download/
+Homebrew installation page: https://brew.sh. 
+Terraform installation page: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli. 
+OCI client installation page: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm. 
+Python installation page: https://www.python.org/downloads/. 
+Git installation page: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git. 
+Kubectl installation page: https://kubernetes.io/docs/tasks/tools/. 
+Jq installation page: https://jqlang.github.io/jq/download/. 
