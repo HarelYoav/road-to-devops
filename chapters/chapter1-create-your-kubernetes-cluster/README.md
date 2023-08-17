@@ -17,6 +17,36 @@ Before you begin, make sure you have the following prerequisites in place (or yo
   **This will require manual changes to the provided commands or scripts in case you plan to use them!**
 
 ## Quick Overview 
+This overview section will guide you how to quickly configure the K3s OCI cluster Using Terraform.
+### 1. Prepare The Local Environment
+Create required directories and clone the repositories:
+```
+mkdir -p $HOME/.oci
+mkdir -p $HOME/workspace/cloud
+cd $HOME/workspace/cloud
+git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
+cd $HOME/workspace
+git clone https://github.com/davidpinhas/road-to-devops.git
+```
+### 2. Run prepare-env.sh Script
+Navigate to the scripts directories of this chapter:
+```
+cd $HOME/workspace/road-to-devops/chapters/chapter1-create-your-kubernetes-cluster/scripts/
+bash prepare-env.sh daveops.dev@gmail.com
+```
+### 3. Create OCI Account
+Create the [Oracle Cloud Infrastructure account ](https://www.oracle.com/cloud/free/), and afterwards create an API key by following the steps in the 3rd section [click API Keys](https://github.com/davidpinhas/road-to-devops/tree/master/chapters/chapter1-create-your-kubernetes-cluster#3-configuring-the-oci-cli---recommended-method).
+### 4. Update K3s-oci-cluster terraform.tfvars Files Variables
+From the scripts directory if this project, run the `update-tfvars-file.sh`:
+```
+cd $HOME/workspace/road-to-devops/chapters/chapter1-create-your-kubernetes-cluster/scripts/
+bash update-tfvars-file.sh
+```
+### 5. Create Cluster
+Create the cluster using the Terraform CLI
+```
+terraform init && terraform plan -out=tfplan && terraform apply "tfplan"
+```
 
 ## Full Overview 
 ### 1. Initial Configuration
