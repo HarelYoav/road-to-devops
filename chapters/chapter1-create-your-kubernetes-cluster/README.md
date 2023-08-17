@@ -16,7 +16,9 @@ Before you begin, make sure you have the following prerequisites in place (or yo
 - Create required directories - The guide will be demonstrated using these directories, however you can choose any directory you prefer.
   **This will require manual changes to the provided commands or scripts in case you plan to use them!**
 
-## Overview
+## Quick Overview 
+
+## Full Overview 
 ### 1. Initial Configuration
 To make life easier the `prepare-env.sh` Bash script was created to perform the following:
 - Create all required directories
@@ -55,14 +57,14 @@ The keys will be created under the `~/.ssh` directory.
 
 4. **Install the required clients and commands** (you can find the installation for each cli under the `Installation docs` at the bottom of this readme).
 
-### 3. **Cloning the GitHub Repository**:
+### 2. **Cloning the GitHub Repository**:
  - Clone the [K3s on OCI Repository](https://github.com/garutilorenzo/k3s-oci-cluster.git) that contains our project files.
 ```
 cd $HOME/workspace/cloud
 git clone https://github.com/garutilorenzo/k3s-oci-cluster.git
 ```
 
-### 4. **Configuring the OCI CLI - Recommended Method**:
+### 3. **Configuring the OCI CLI - Recommended Method**:
 To configure the OCI client, navigate to the OCI console in your browser, from the Profile menu, go to User settings and click API Keys.  
 Afterwards, press on the `Add API Key`, select `Paste a public key` and paste the content of the public RSA key we created.  
 
@@ -84,7 +86,7 @@ oci iam region list
 
 The command should output a JSON list of all regions.
 
-### 5. **Collecting OCI Secrets For Terraform Project tfvars File**:
+### 4. **Collecting OCI Secrets For Terraform Project tfvars File**:
 The **easiest way** to do so is to utilize the `update-tfvars-file.sh` Bash script (**requires the OCI client to be configured as mentioned in step 4**), for example:
 ```
 bash update-tfvars-file.sh
@@ -115,13 +117,13 @@ certmanager_email_address = "<Set your email address>"
 
 - To collect the required credentials information from the **OCI Console**, you can read the official documentation - https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm
 
-### 6. **Running Terraform Commands**:
+### 5. **Running Terraform Commands**:
 From the `$HOME/workspace/cloud/k3s-oci-cluster/example` directory, run the following command to spin up the Kubernetes cluster using the OCI resources:
  - Initialize the Terraform project: `terraform init`.
  - Review the execution plan: `terraform plan`.
  - Apply changes to create the Kubernetes cluster: `terraform apply`.
 
-### 7. **Exploring Terraform Destroy**:
+### 6. **Exploring Terraform Destroy**:
  - Destroy all the OCI resources using: `terraform destroy`.
 
 ## Documentation
