@@ -105,17 +105,8 @@ install_cli_tool() {
     fi
 }
 
+# Install Prerequisites for macOS
 install_on_macOS() {
-    # Install Homebrew
-    if ! command -v brew; then
-        echo "INFO: Installing Homebrew."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-        brew update
-        echo "INFO: Homebrew installed successfully."
-    else
-        echo "INFO: Homebrew is already installed."
-    fi
-
     # Install CLIs
     install_cli_tool "brew" '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"' # Install Homebrew if not installed
     install_cli_tool "terraform" "brew install hashicorp/tap/terraform" # Install Terraform
@@ -140,7 +131,7 @@ install_on_Ubuntu() {
     install_cli_tool "oci" 'curl -LO "https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh"; chmod +x install.sh; sudo ./install.sh --install-dir /opt/oracle/cli --exec-dir /usr/bin --accept-all-defaults; sudo rm install.sh'
 }
 
-#Check type of OS
+#Check OS type
 case $OS in
 
   "Ubuntu")
