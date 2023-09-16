@@ -4,9 +4,16 @@ echo "###########################################
 #### Road To DevOps Preperation Script ####
 ###########################################"
 
-# Check if the script is running on macOS
-if [[ $(uname -s) != "Darwin" ]]; then
-    echo "ERROR: This script only works on macOS."
+OS=""
+# Check the OS the script is running on
+if [[ $(uname -s) == "Darwin" ]]; then
+    echo "Detected macOS installation mode."
+    OS="Darwin"
+elif [[ $(uname -s) == "Linux" &&  $(grep -oP 'NAME="\K[^"]+' /etc/os-release | head -n1 | sed -e 's/\s.*$//') == "Ubuntu" ]]; then 
+    echo "Detected Ubuntu Linux installation mode."
+    OS="Ubuntu"
+else
+    echo "ERROR: This script only works on macOS or Ubuntu."
     exit 1
 fi
 
@@ -80,42 +87,74 @@ echo "
 #### Installing Prerequisites ####
 ##################################"
 
-# Install Homebrew
-if ! command -v brew; then
-    echo "INFO: Installing Homebrew."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    brew update
-    echo "INFO: Homebrew installed successfully."
-else
-    echo "INFO: Homebrew is already installed."
-fi
-
 # Function to install a tool using Homebrew
-install_with_brew() {
+install_cli_tool() {
     tool_name="$1"
     install_command="$2"
-    already_installed_message="$3"
 
-    if ! command -v "$tool_name"; then
+    if [ -n "$tool_name" ] && command -v "$tool_name" &>/dev/null; then
+        echo "INFO: $tool_name is already installed."
+    else
         echo "INFO: Installing $tool_name."
-        if brew install "$install_command"; then
+        if eval "$install_command"; then
             echo "INFO: $tool_name installed successfully."
         else
             echo "ERROR: Failed to install $tool_name."
             exit 1
         fi
-    else
-        echo "INFO: $already_installed_message."
     fi
 }
 
-# Install CLIs
-install_with_brew "brew" "" "Homebrew is already installed." # Install Homebrew if not installed
-install_with_brew "terraform" "hashicorp/tap/terraform" "Terraform is already installed." # Install Terraform
-install_with_brew "python3.10" "python@3.10" "Python 3.10 is already installed." # Install Python 3.10
-install_with_brew "jq" "jq" "jq is already installed." # Install jq
-install_with_brew "oci" "oci-cli" "OCI CLI is already installed." # Install OCI CLI
-install_with_brew "kubectl" "" "kubectl is already installed." # Install kubectl
+install_on_macOS() {
+    # Install Homebrew
+    if ! command -v brew; then
+        echo "INFO: Installing Homebrew."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        brew update
+        echo "INFO: Homebrew installed successfully."
+    else
+        echo "INFO: Homebrew is already installed."
+    fi
+
+    # Install CLIs
+    install_cli_tool "brew" '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"' # Install Homebrew if not installed
+    install_cli_tool "terraform" "brew install hashicorp/tap/terraform" # Install Terraform
+    install_cli_tool "python3.10" "brew install python@3.10" # Install Python 3.10
+    install_cli_tool "jq" "brew install jq" # Install jq
+    install_cli_tool "oci" "brew install oci-cli" # Install OCI CLI
+    install_cli_tool "kubectl" 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"; chmod +x kubectl; sudo mv kubectl /usr/bin' # Install kubectl
+}
+
+# Install Prerequisites for Linux (Ubuntu)
+install_on_Ubuntu() {
+    # Install CLIs
+    install_cli_tool "sudo" "apt-get update && apt-get -y install sudo"
+    install_cli_tool "add-apt-repository" "export DEBIAN_FRONTEND=noninteractive; apt-get -y install tzdata; sudo apt-get -y install software-properties-common"
+    install_cli_tool "python3.10" "sudo add-apt-repository -y ppa:deadsnakes/ppa; sudo apt update; sudo apt-get install -y python3.10"
+    install_cli_tool "pip" "sudo apt -y install python3-pip"
+    install_cli_tool "jq" "sudo apt-get install -y jq" "jq is already installed."
+    install_cli_tool "curl" "sudo apt install -y curl" "curl is already installed."
+    install_cli_tool "unzip" "sudo apt-get install -y unzip" "unzip is already installed."
+    install_cli_tool "Terraform" 'curl -LO "https://releases.hashicorp.com/terraform/$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')/terraform_$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')_linux_amd64.zip"; unzip terraform_*_linux_amd64.zip && rm terraform_*_linux_amd64.zip; sudo mv terraform /usr/bin'
+    install_cli_tool "kubectl" 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; chmod +x kubectl; sudo mv kubectl /usr/bin'
+    install_cli_tool "oci" 'curl -LO "https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh"; chmod +x install.sh; sudo ./install.sh --install-dir /opt/oracle/cli --exec-dir /usr/bin --accept-all-defaults; sudo rm install.sh'
+}
+
+#Check type of OS
+case $OS in
+
+  "Ubuntu")
+    install_on_Ubuntu
+    ;;
+
+  "Darwin")
+    install_on_macOS
+    ;;
+
+  *)
+    exit 1
+    ;;
+esac
 
 echo "
 ###########################################
